@@ -133,7 +133,8 @@ export default function Navbar() {
               className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-orange-500 px-5 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:bg-orange-600"
             >
               <Phone className="h-4 w-4" />
-              Call Now
+              Call 
+              
             </button>
           </nav>
         </div>
