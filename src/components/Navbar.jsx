@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Compass, Menu, X } from "lucide-react";
+import { Compass, Menu, X, Phone } from "lucide-react";
 import WhatsAppButton from "./WhatsAppButton.jsx";
+
+const PHONE_NUMBER = "+919604878587";
 
 const navLinks = [
   { label: "Home", to: "/" },
@@ -31,6 +33,10 @@ export default function Navbar() {
 
   const closeMenu = () => setMenuOpen(false);
 
+  const handleCallNow = () => {
+    window.location.href = `tel:${PHONE_NUMBER}`;
+  };
+
   const linkClass = ({ isActive }) =>
     `text-sm font-semibold transition-colors duration-300 ${
       isActive ? "text-sunset-500" : "text-ocean-950 hover:text-sunset-500"
@@ -47,6 +53,7 @@ export default function Navbar() {
           <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-ocean-600 text-white">
             <Compass className="h-5 w-5" />
           </span>
+
           <span className="text-lg font-extrabold text-ocean-950">
             Matoshree <span className="text-sunset-500">Travels</span>
           </span>
@@ -54,12 +61,18 @@ export default function Navbar() {
 
         <nav className="hidden items-center gap-8 lg:flex">
           {navLinks.map((link) => (
-            <NavLink key={link.to} to={link.to} end={link.to === "/"} className={linkClass}>
+            <NavLink
+              key={link.to}
+              to={link.to}
+              end={link.to === "/"}
+              className={linkClass}
+            >
               {link.label}
             </NavLink>
           ))}
         </nav>
 
+        {/* Desktop Buttons */}
         <div className="hidden items-center gap-3 lg:flex">
           <WhatsAppButton
             variant="solid"
@@ -67,6 +80,15 @@ export default function Navbar() {
           >
             WhatsApp
           </WhatsAppButton>
+
+          <button
+            type="button"
+            onClick={handleCallNow}
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-orange-500 px-5 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-orange-600"
+          >
+            <Phone className="h-4 w-4" />
+            Call
+          </button>
         </div>
 
         <button
@@ -93,6 +115,7 @@ export default function Navbar() {
                 {link.label}
               </NavLink>
             ))}
+
             <WhatsAppButton
               variant="solid"
               className="mt-2 w-full"
@@ -100,6 +123,18 @@ export default function Navbar() {
             >
               WhatsApp Us
             </WhatsAppButton>
+
+            <button
+              type="button"
+              onClick={() => {
+                closeMenu();
+                handleCallNow();
+              }}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-orange-500 px-5 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:bg-orange-600"
+            >
+              <Phone className="h-4 w-4" />
+              Call Now
+            </button>
           </nav>
         </div>
       )}

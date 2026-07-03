@@ -17,7 +17,10 @@ import {
   CheckCircle2,
   UserCheck,
   Sparkles,
+  Phone,
 } from "lucide-react";
+
+const PHONE_NUMBER = "+919604878587";
 
 const destinations = [
   {
@@ -81,12 +84,22 @@ export default function Home() {
   };
 
   const handleCallNow = () => {
-    window.location.href = "tel:+919876543210";
+    window.location.href = `tel:${PHONE_NUMBER}`;
   };
 
   return (
     <div>
       <Hero />
+
+      {/* Floating Call Button - Right Side */}
+      <button
+        type="button"
+        onClick={handleCallNow}
+        className="fixed bottom-28 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-orange-500 text-white shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-orange-600"
+        aria-label="Call Now"
+      >
+        <Phone className="h-6 w-6" />
+      </button>
 
       {/* Popular Destinations */}
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -197,9 +210,10 @@ export default function Home() {
             </a>
 
             <a
-              href="tel:+919876543210"
-              className="inline-flex w-full items-center justify-center rounded-full bg-ocean-600 px-8 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-ocean-700 sm:w-auto"
+              href={`tel:${PHONE_NUMBER}`}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-orange-500 px-8 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-orange-600 sm:w-auto"
             >
+              <Phone className="h-4 w-4" />
               Call Now
             </a>
           </div>
