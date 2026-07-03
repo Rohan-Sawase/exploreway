@@ -5,7 +5,7 @@ import PackageCard from "../components/PackageCard.jsx";
 import ServiceCard from "../components/ServiceCard.jsx";
 import TestimonialCard from "../components/TestimonialCard.jsx";
 import CTASection from "../components/CTASection.jsx";
-import WhatsAppButton, { buildWhatsAppLink } from "../components/WhatsAppButton.jsx";
+import { buildWhatsAppLink } from "../components/WhatsAppButton.jsx";
 import packages from "../data/packages.js";
 import services from "../data/services.js";
 import gallery from "../data/gallery.js";
@@ -23,32 +23,38 @@ const destinations = [
   {
     name: "Goa",
     tagline: "Sun, sand, and beach parties",
-    image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Manali",
     tagline: "Snow-capped mountain escapes",
-    image: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Kerala",
     tagline: "Serene backwaters and greenery",
-    image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Rajasthan",
     tagline: "Royal forts and desert culture",
-    image: "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Dubai",
     tagline: "Modern skylines and luxury",
-    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Thailand",
     tagline: "Vibrant cities and island fun",
-    image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=800&q=80",
   },
 ];
 
@@ -67,9 +73,15 @@ export default function Home() {
 
   const handleServiceEnquiry = (title) => {
     window.open(
-      buildWhatsAppLink(`Hi, I am interested in your ${title} service. Please share more details.`),
+      buildWhatsAppLink(
+        `Hi, I am interested in your ${title} service. Please share more details.`
+      ),
       "_blank"
     );
+  };
+
+  const handleCallNow = () => {
+    window.location.href = "tel:+919876543210";
   };
 
   return (
@@ -83,6 +95,7 @@ export default function Home() {
           title="Handpicked places travelers love"
           description="From tropical beaches to snowy mountains, discover the destinations our travelers keep coming back to."
         />
+
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {destinations.map((dest) => (
             <div
@@ -95,10 +108,14 @@ export default function Home() {
                 loading="lazy"
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
+
               <div className="absolute inset-0 bg-gradient-to-t from-ocean-950/90 via-ocean-950/20 to-transparent" />
+
               <div className="absolute inset-x-0 bottom-0 p-5">
                 <h3 className="text-xl font-bold text-white">{dest.name}</h3>
+
                 <p className="mt-1 text-sm text-ocean-100">{dest.tagline}</p>
+
                 <Link
                   to={`/packages?search=${encodeURIComponent(dest.name)}`}
                   className="mt-3 inline-block rounded-full bg-white px-4 py-1.5 text-xs font-semibold text-ocean-950 transition-transform duration-300 hover:scale-105"
@@ -119,11 +136,13 @@ export default function Home() {
             title="Our most loved tour packages"
             description="Carefully designed itineraries covering the best of domestic and international travel."
           />
+
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {featuredPackages.map((pkg) => (
               <PackageCard key={pkg.id} pkg={pkg} />
             ))}
           </div>
+
           <div className="mt-10 text-center">
             <Link
               to="/packages"
@@ -141,10 +160,49 @@ export default function Home() {
           eyebrow="What We Offer"
           title="Complete travel solutions, all in one place"
         />
+
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.slice(0, 6).map((service) => (
-            <ServiceCard key={service.id} service={service} onEnquire={handleServiceEnquiry} />
+            <ServiceCard
+              key={service.id}
+              service={service}
+              onEnquire={handleServiceEnquiry}
+              onCall={handleCallNow}
+            />
           ))}
+        </div>
+      </section>
+
+      {/* Direct Contact Buttons */}
+      <section className="bg-white py-10">
+        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-ocean-950">
+            Need help planning your trip?
+          </h2>
+
+          <p className="mt-2 text-sm text-gray-600">
+            Contact us directly on WhatsApp or call us now.
+          </p>
+
+          <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <a
+              href={buildWhatsAppLink(
+                "Hi, I want to plan a trip. Please share package details."
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-full items-center justify-center rounded-full bg-green-500 px-8 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-green-600 sm:w-auto"
+            >
+              WhatsApp Now
+            </a>
+
+            <a
+              href="tel:+919876543210"
+              className="inline-flex w-full items-center justify-center rounded-full bg-ocean-600 px-8 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-ocean-700 sm:w-auto"
+            >
+              Call Now
+            </a>
+          </div>
         </div>
       </section>
 
@@ -156,6 +214,7 @@ export default function Home() {
             title="Travel planning made simple and reliable"
             description=""
           />
+
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {whyChooseUs.map(({ icon: Icon, text }) => (
               <div
@@ -165,6 +224,7 @@ export default function Home() {
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-sunset-500/20 text-sunset-400">
                   <Icon className="h-5 w-5" />
                 </span>
+
                 <span className="text-sm font-medium">{text}</span>
               </div>
             ))}
@@ -174,10 +234,8 @@ export default function Home() {
 
       {/* Testimonials */}
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <SectionTitle
-          eyebrow="Testimonials"
-          title="What our travelers say"
-        />
+        <SectionTitle eyebrow="Testimonials" title="What our travelers say" />
+
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {testimonials.slice(0, 3).map((t) => (
             <TestimonialCard key={t.id} testimonial={t} />
@@ -188,16 +246,24 @@ export default function Home() {
       {/* Gallery Preview */}
       <section className="bg-ocean-50/60 py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionTitle eyebrow="Gallery" title="Moments from our travelers' journeys" />
+          <SectionTitle
+            eyebrow="Gallery"
+            title="Moments from our travelers' journeys"
+          />
+
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
             {galleryPreview.map((img) => (
-              <div key={img.id} className="group relative aspect-square overflow-hidden rounded-xl">
+              <div
+                key={img.id}
+                className="group relative aspect-square overflow-hidden rounded-xl"
+              >
                 <img
                   src={img.image}
                   alt={img.title}
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
+
                 <div className="absolute inset-0 flex items-end bg-ocean-950/0 p-2 transition-colors duration-300 group-hover:bg-ocean-950/50">
                   <span className="text-xs font-medium text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                     {img.title}
@@ -206,6 +272,7 @@ export default function Home() {
               </div>
             ))}
           </div>
+
           <div className="mt-8 text-center">
             <Link
               to="/gallery"
